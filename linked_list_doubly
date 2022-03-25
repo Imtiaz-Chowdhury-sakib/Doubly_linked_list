@@ -1,0 +1,219 @@
+#include<iostream>
+using namespace std;
+
+struct node
+{
+    int data;
+    struct node* next;
+    struct node* prev;
+};
+
+
+struct Doubly_linked_list
+{
+    /* data */
+    node* head;
+    node* tail;
+    Doubly_linked_list(){
+        head = NULL;
+        tail = NULL;
+    }
+    void insert_first(int val)
+    { 
+        // 1st step
+        node *temp = new node;
+        temp->data = val;
+        temp->next = head;
+        temp->prev = NULL;
+        
+        // 2nd step
+        if(head == NULL)
+           tail = temp;
+        else
+            head->prev = temp;
+            head = temp;
+    }
+
+    void insert_last(int val)
+    {
+        // 1st step
+        node *temp = new node;
+        temp->data= val;
+        temp->next= NULL;
+        temp->prev= tail;
+        
+        //2nd step
+        if(tail == NULL){
+            head = temp;
+        
+        }
+        //3rd step
+        else
+            tail->next = temp;
+            tail = temp;
+    }
+
+
+
+    void show_list()
+    {
+        node *temp = head;
+        while(temp!=NULL)
+        {
+            cout << temp->data << "->";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+    void insert_after(int new_val, int prev_val)
+    {
+        //1st step
+        node *curr = head;
+        while(curr !=NULL){
+            if(curr->data == prev_val){
+                break;
+            }
+            curr = curr->next;
+        }
+        if(curr == NULL){
+            return;
+        }
+
+        //2nd step
+        node *x = curr;
+        node *y = curr->next;
+        node *temp = new node;
+        temp->data = new_val;
+        temp->prev = x;
+        temp->next = y;
+        x->next = temp;
+
+        //3rd step
+        if(y == NULL){
+            tail = temp;
+        }
+        else
+            y->prev = temp;
+    }
+    void insert_before(int new_val, int prev_val)
+    {
+        //1st step
+        node *curr = tail;
+        while(curr != NULL){
+            if(curr->data == prev_val){
+                break;
+            }
+            curr = curr->prev;
+        }
+        if( curr == NULL){
+            return;
+        }
+
+        // 2nd step
+        node *x = curr;
+        node *y = curr -> prev;
+        node *temp= new node;
+        temp->data = new_val;
+        temp->next = x;
+        temp->prev = y;
+        x->prev = temp;
+
+        // 3rd step
+        if( y == NULL){
+            head == temp;
+
+        }
+        else 
+            y->next = temp;
+    }
+
+
+
+};
+
+
+int main()
+{
+   Doubly_linked_list Doubly_linked_list;
+   int ch;
+   int val,prev_val;
+
+   while (1)
+   {
+       /* code */
+       cout << "------------MENU------------" << endl;
+       cout << "1. Insert First. "<< endl;
+       cout << "2. Insert Last. "<< endl;
+       cout << "3. Insert After. "<< endl;
+       cout << "4. Insert Before. " <<endl;
+       cout << "5. Delete First. " << endl;
+       cout << "6. Delete Last. " << endl;
+       cout << "7. Delete Item. " << endl;
+       cout << "8. Show All. " <<  endl;
+       cout << "9. Search. " << endl;
+       cout << "10. EXIT. " << endl;
+
+       cin >> ch;
+       switch (ch)
+       {
+       case 1:
+
+           cout<< "Enter the value of data: ";
+           cin >> val;
+           Doubly_linked_list.insert_first(val);
+           break;
+
+       case 2:
+
+            cout << "Enter the value of data: ";
+            cin >> val;
+            Doubly_linked_list.insert_last(val);
+            break;
+
+        case 3:
+            cout << "Enter the new value of data: ";
+            cin >> val;
+            cout << "Enter the prev value of data: ";
+            cin >> prev_val;
+            Doubly_linked_list.insert_after(val,prev_val);
+            break;
+
+
+        case 4:
+            cout << "Enter the new value of data: ";
+            cin >> val;
+            cout << "Enter the prev value of data: ";
+            cin >> prev_val;
+            Doubly_linked_list.insert_before(val,prev_val);
+            break;
+
+             break;
+        case 5: 
+            break;
+        case 6:
+            break;
+
+        case 7: 
+            break;
+
+        case 8:
+        Doubly_linked_list.show_list();
+            break;
+
+        case  9:
+            break;
+        case 10:
+             exit(0);
+             break;
+       default:
+            cout << "Wrong Input !!" << endl;
+            break;
+       }
+   }
+   
+  
+  return 0;
+
+
+}
